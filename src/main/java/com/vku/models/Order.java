@@ -38,7 +38,7 @@ public class Order {
     private Account account;
 
     @Column(name = "status")
-    private String status;
+    private boolean status = true;
 
     private double totalPrice;
 

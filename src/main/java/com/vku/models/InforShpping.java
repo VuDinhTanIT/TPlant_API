@@ -38,7 +38,8 @@
 //	@Column(name = "address")
 //	private String address;
 //
-//	private boolean status;
+//  private boolean status = true;
+
 //
 //	@Column(name = "create_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false, nullable = false)
 //	private Timestamp createTime;

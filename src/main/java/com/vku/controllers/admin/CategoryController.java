@@ -1,4 +1,4 @@
-package com.vku.controllers;
+package com.vku.controllers.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/api/admin/categories")
 public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
@@ -32,6 +32,7 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<Category> createCategory(@RequestBody Category category) {
+    	category.setCategoryId(0);
         Category savedCategory = categoryService.saveCategory(category);
         return new ResponseEntity<>(savedCategory, HttpStatus.CREATED);
     }

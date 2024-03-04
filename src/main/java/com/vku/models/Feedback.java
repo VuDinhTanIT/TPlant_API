@@ -1,6 +1,9 @@
 package com.vku.models;
 
 import java.sql.Timestamp;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,9 +14,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Feedback {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +41,7 @@ public class Feedback {
     @JoinColumn(name ="account_id")
     private Account account;
     
-    private boolean status;
+    private boolean status = true;
     
     @Column(name = "create_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false, nullable = false)
 	private Timestamp createTime;

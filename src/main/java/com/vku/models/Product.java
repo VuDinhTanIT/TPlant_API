@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,6 +23,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,23 +35,23 @@ public class Product {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "supplier_id")
-    private Supplier supplier;
+    private Supplier supplier = null;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "discount_id")
-    private Discount discount;
+    private Discount discount = null;
 
     private double price;
 
     private String images;
 
-    private boolean sttatus;
+    private boolean status = true;
 
     @JsonIgnore
     @OneToMany(mappedBy = "product")

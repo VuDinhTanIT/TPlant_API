@@ -16,11 +16,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @AllArgsConstructor
-
+@NoArgsConstructor
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,8 +31,8 @@ public class Category {
     @Column(name = "category_name")
     private String categoryName;
 
-    @Column(name = "status")
-    private boolean status;
+	@Column(name = "status")
+    private boolean status = true;
     
     @JsonIgnore
 	@OneToMany(mappedBy = "category")

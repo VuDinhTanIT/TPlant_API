@@ -12,13 +12,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "supplier_id")
-    private Long supplierId;
+    private int supplierId;
 
     @Column(name = "supplier_name")
     private String supplierName;
@@ -31,6 +37,8 @@ public class Supplier {
     @JsonIgnore
 	@OneToMany(mappedBy = "supplier")
     private List<Product> products;
+
+    private boolean status = true;
 
     @Column(name = "create_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false, nullable = false)
 	private Timestamp createTime;

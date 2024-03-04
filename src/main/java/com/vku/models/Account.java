@@ -25,40 +25,41 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Account {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "account_id")
-    private Long accountId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "account_id")
+	private Long accountId;
 
-    @Column(name = "email")
-    private String email;
+	@Column(name = "email")
+	private String email;
 
-    @Column(name = "password")
-    private String password;
+	@Column(name = "password")
+	private String password;
 
-    private String fullName;
+	private String fullName;
 
-    private String phoneNumber;
+	private String phoneNumber;
 
-    @Column(name = "otp")
-    private String otp;
+	@Column(name = "otp")
+	private String otp;
 
-    @Column(name = "role")
-    private int role;
-    
-    @JsonIgnore
-    @OneToMany(mappedBy = "account")
-    private List<Order>  orders;
-    
-    @JsonIgnore
-    @OneToMany(mappedBy = "account")
-    private List<Feedback> feedbacks;
+	@Column(name = "role")
+	private int role;
 
-    private boolean status;
-    
-    @Column(name = "create_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false, nullable = false)
-	private Timestamp createTime;
+	@JsonIgnore
+	@OneToMany(mappedBy = "account")
+	private List<Order> orders;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "account")
+	private List<Feedback> feedbacks;
+
+	@Column(name = "status")
+    private boolean status = true;
 	
+	@Column(name = "create_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false, nullable = false)
+	private Timestamp createTime;
+
 	@Column(name = "update_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", updatable = true, nullable = false)
 	private Timestamp updateTime;
 
