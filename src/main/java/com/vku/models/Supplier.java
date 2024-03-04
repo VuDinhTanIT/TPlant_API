@@ -1,6 +1,7 @@
 package com.vku.models;
 
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,7 +29,12 @@ public class Supplier {
     @Column(name = "address")
     private String address;
     @JsonIgnore
-	@OneToMany(mappedBy = "supplier_id")
+	@OneToMany(mappedBy = "supplier")
     private List<Product> products;
-    // Constructors, getters, and setters
+
+    @Column(name = "create_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false, nullable = false)
+	private Timestamp createTime;
+	
+	@Column(name = "update_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", updatable = true, nullable = false)
+	private Timestamp updateTime;
 }

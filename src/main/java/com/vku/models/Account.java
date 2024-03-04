@@ -14,56 +14,52 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
+@Table(name = "account")
 @AllArgsConstructor
+@Data
 @NoArgsConstructor
-public class Product {
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JoinColumn(name = "product_id")
-    private Long productId;
+    @Column(name = "account_id")
+    private Long accountId;
 
-    private String productName;
-    
-    @Column(name = "description")
-    private String description;
+    @Column(name = "email")
+    private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @Column(name = "password")
+    private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "supplier_id")
-    private Supplier supplier;
+    private String fullName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "discount_id")
-    private Discount discount;
+    private String phoneNumber;
 
-    private double price;
+    @Column(name = "otp")
+    private String otp;
 
-    private String images;
-
-    private boolean sttatus;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "product")
-    private List<OrderDetail> oderDetails;
-    
+    @Column(name = "role")
+    private int role;
     
     @JsonIgnore
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "account")
+    private List<Order>  orders;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "account")
     private List<Feedback> feedbacks;
+
+    private boolean status;
     
     @Column(name = "create_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false, nullable = false)
 	private Timestamp createTime;
 	
 	@Column(name = "update_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", updatable = true, nullable = false)
 	private Timestamp updateTime;
-    // Constructors, getters, and setters
+
 }

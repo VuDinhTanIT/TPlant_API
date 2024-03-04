@@ -1,5 +1,7 @@
 package com.vku.models;
 
+import java.sql.Timestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -26,5 +28,15 @@ public class Feedback {
     @JoinColumn(name = "product_id")
     private Product product;
     
-    private String status;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name ="account_id")
+    private Account account;
+    
+    private boolean status;
+    
+    @Column(name = "create_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false, nullable = false)
+	private Timestamp createTime;
+	
+	@Column(name = "update_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", updatable = true, nullable = false)
+	private Timestamp updateTime;
 }
