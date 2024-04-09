@@ -1,5 +1,6 @@
 package com.vku.models;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -47,6 +48,14 @@ public class Order {
     private String phoneReceiver;
 
     private String addressReceiver;
+    
+//    @Column(columnDefinition )
+//    private Byte orderStatus;
+    
 
-    // Constructors, getters, and setters
-}
+    @Column(name = "create_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", updatable = false, nullable = false)
+	private Timestamp createTime;
+	
+	@Column(name = "update_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", updatable = true, nullable = false)
+	private Timestamp updateTime;
+	}

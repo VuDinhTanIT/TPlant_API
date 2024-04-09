@@ -22,7 +22,7 @@ public class FeedbackService {
         return feedbackRepository.findAll();
     }
 
-    public Optional<Feedback> getFeedbackById(int feedbackId) {
+    public Optional<Feedback> getFeedbackById(Long feedbackId) {
         return feedbackRepository.findById(feedbackId);
     }
 
@@ -30,7 +30,7 @@ public class FeedbackService {
         return feedbackRepository.save(feedback);
     }
 
-    public void deleteFeedback(int feedbackId) {
+    public void deleteFeedback(Long feedbackId) {
         feedbackRepository.deleteById(feedbackId);
     }
 }

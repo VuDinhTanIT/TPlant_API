@@ -1,6 +1,7 @@
 package com.vku.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.vku.models.Product;
@@ -32,5 +33,19 @@ public class ProductService {
 
     public void deleteProduct(Long productId) {
         productRepository.deleteById(productId);
+    }
+    
+    public List<Product> getTopProducts(int count) {
+        PageRequest pageable = PageRequest.of(0, count);
+        return productRepository.findAll(pageable).getContent();
+    }
+
+    public List<Product> getSimilarProducts(int categoryId, int count) {
+        PageRequest pageable = PageRequest.of(0, count);
+        return productRepository.findByCategoryCategoryId(categoryId, pageable);
+    }
+
+    public List<Product> getProductsByCategory(int categoryId) {
+        return productRepository.findByCategoryCategoryId(categoryId);
     }
 }

@@ -17,46 +17,46 @@ public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
 
-    @GetMapping
-    public ResponseEntity<List<Category>> getAllCategories() {
-        List<Category> categories = categoryService.getAllCategories();
-        return new ResponseEntity<>(categories, HttpStatus.OK);
-    }
+	@GetMapping
+	public ResponseEntity<List<Category>> getAllCategories() {
+		List<Category> categories = categoryService.getAllCategories();
+		return new ResponseEntity<>(categories, HttpStatus.OK);
+	}
 
-    @GetMapping("/{categoryId}")
-    public ResponseEntity<Category> getCategoryById(@PathVariable int categoryId) {
-        Optional<Category> category = categoryService.getCategoryById(categoryId);
-        return category.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
+	@GetMapping("/{categoryId}")
+	public ResponseEntity<Category> getCategoryById(@PathVariable int categoryId) {
+		Optional<Category> category = categoryService.getCategoryById(categoryId);
+		return category.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+				.orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	}
 
-    @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
-    	category.setCategoryId(0);
-        Category savedCategory = categoryService.saveCategory(category);
-        return new ResponseEntity<>(savedCategory, HttpStatus.CREATED);
-    }
+	@PostMapping
+	public ResponseEntity<Category> createCategory(@RequestBody Category category) {
+		category.setCategoryId(0);
+		Category savedCategory = categoryService.saveCategory(category);
+		return new ResponseEntity<>(savedCategory, HttpStatus.CREATED);
+	}
 
-    @PutMapping("/{categoryId}")
-    public ResponseEntity<Category> updateCategory(@PathVariable int categoryId, @RequestBody Category category) {
-        Optional<Category> existingCategory = categoryService.getCategoryById(categoryId);
-        if (existingCategory.isPresent()) {
-            category.setCategoryId(categoryId);
-            Category updatedCategory = categoryService.saveCategory(category);
-            return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+	@PutMapping("/{categoryId}")
+	public ResponseEntity<Category> updateCategory(@PathVariable int categoryId, @RequestBody Category category) {
+		Optional<Category> existingCategory = categoryService.getCategoryById(categoryId);
+		if (existingCategory.isPresent()) {
+			category.setCategoryId(categoryId);
+			Category updatedCategory = categoryService.saveCategory(category);
+			return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 
-    @DeleteMapping("/{categoryId}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable int categoryId) {
-        Optional<Category> existingCategory = categoryService.getCategoryById(categoryId);
-        if (existingCategory.isPresent()) {
-            categoryService.deleteCategory(categoryId);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+	@DeleteMapping("/{categoryId}")
+	public ResponseEntity<Void> deleteCategory(@PathVariable int categoryId) {
+		Optional<Category> existingCategory = categoryService.getCategoryById(categoryId);
+		if (existingCategory.isPresent()) {
+			categoryService.deleteCategory(categoryId);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 }

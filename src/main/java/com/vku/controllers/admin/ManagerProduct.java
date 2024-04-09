@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/admin/products")
-public class ProductControlle {
+public class ManagerProduct {
 	@Autowired
 	private ProductService productService;
 
@@ -48,7 +48,10 @@ public class ProductControlle {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+    @GetMapping("/category/{categoryId}")
+    public List<Product> getProductsByCategory(@PathVariable int categoryId) {
+        return productService.getProductsByCategory(categoryId);
+    }
     @DeleteMapping("/{productId}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long productId) {
         Optional<Product> existingProduct = productService.getProductById(productId);
