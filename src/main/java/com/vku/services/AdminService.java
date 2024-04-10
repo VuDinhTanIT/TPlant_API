@@ -83,6 +83,12 @@ public class AdminService {
         adminAccountRepository.save(currentUser);
     }
 
+
+	public void deleteAccount(Long accountId) {
+		// TODO Auto-generated method stub
+		
+	}
+
     
    
 

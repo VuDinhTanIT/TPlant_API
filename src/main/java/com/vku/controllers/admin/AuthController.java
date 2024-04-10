@@ -2,6 +2,8 @@ package com.vku.controllers.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -77,14 +79,23 @@ public class AuthController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @DeleteMapping("/adminAccounts/{accountId}")
+    public ResponseEntity<?> deleteAccount(@PathVariable Long accountId, HttpServletRequest request) {
+        try {
+            // Lấy thông tin người dùng từ session
+            HttpSession session = request.getSession();
+            AdminAccount currentManager = (AdminAccount) session.getAttribute("currentManager");
 
-//    @PostMapping("/forgot-password")
-//    public ResponseEntity<?> forgotPassword( String email) {
-//        try {
-//            authService.forgotPassword(email);
-//            return ResponseEntity.ok().build();
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        }
-//    }
+            if (currentManager != null && currentManager.getRole() == 1) { // Kiểm tra quyền (role == 1 là admin)
+                authService.deleteAccount(accountId);
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.unprocessableEntity().body("Access denied"); // Lỗi không có quyền
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
 }
